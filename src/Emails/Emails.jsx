@@ -12,11 +12,11 @@ export default function Emails() {
     fetch(`http://54.75.95.208:8080/emails`)
       .then((res) => res.json())
       .then((json) => {
-        console.log("json", json)
+        console.log("json", json);
         const newData = [];
         json.forEach((value) => {
-          newData.push([value.subject, value.template.id])
-        })
+          newData.push([value.subject, value.template.id]);
+        });
         setData(newData);
       });
   }, []);
@@ -73,7 +73,7 @@ export default function Emails() {
 
   return (
     <MUIDataTable
-      title={"ACME Employee list"}
+      title={"Sent E-mails"}
       data={data}
       columns={columns}
       options={options}

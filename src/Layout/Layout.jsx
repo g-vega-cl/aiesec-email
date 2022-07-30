@@ -24,6 +24,8 @@ const Layout = ({ children }) => {
     { name: "Contacts", url: "" },
     { name: "Templates", url: "templates" },
     { name: "Sent Emails", url: "emails" },
+    { name: "Create Template", url: "create-template" },
+    // Verify the URL?
   ];
 
   return (
@@ -43,7 +45,8 @@ const Layout = ({ children }) => {
       </AppBar> */}
       <Drawer
         sx={{
-          width: drawerWidth, flexShrink: 0,
+          width: drawerWidth,
+          flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",

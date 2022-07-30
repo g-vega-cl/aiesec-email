@@ -12,21 +12,18 @@ const Login = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // flight: selectedFlight,
-        // seat: selectedSeat,
-        // givenName,
-        // surname,
-        // email,
+        // username,
+        // password
       }),
     })
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
+        // Redirect to Home "/" if success message
       })
       .catch((err) => {
         console.log(err);
       });
-    // object.values() create an array
   };
   return (
     <Box
@@ -35,6 +32,8 @@ const Login = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        background: " #037EF3",
+        height: "600px",
       }}
     >
       <div>(Eventually the PoweredByAIESEC logo)</div>
