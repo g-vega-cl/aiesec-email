@@ -2,9 +2,11 @@ import * as React from "react";
 
 import MUIDataTable from "mui-datatables";
 
-export default function EnhancedTable() {
-  const columns = ["Name", "Title", "Location", "Age", "Salary"];
+export default function Emails() {
+  // contact, subject, template, date
+  const columns = ["Contact", "Subject", "Preview", "Template", "Date"];
 
+  fetch;
   const data = [
     ["Gabby George", "Business Analyst", "Minneapolis", 30, "$100,000"],
     ["Aiden Lloyd", "Business Consultant", "Dallas", 55, "$200,000"],
