@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
       <CssBaseline />
 
       {/* AIESEC HEADER */}
-      <AppBar
+      {/* <AppBar
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
             AIESEC
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
       <Drawer
         sx={{
           width: drawerWidth, flexShrink: 0,
@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
+        <Toolbar>AIESEC Logo</Toolbar>
         <Divider />
 
         {/* NAVBAR */}
