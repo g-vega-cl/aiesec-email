@@ -1,47 +1,86 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import * as React from "react";
+import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const Home = () => {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    fetch(`/contacts`)
+      .then((res) => res.json())
+      .then((json) => {
+        setContacts(json);
+      });
+  }, []);
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-      >
-        <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-          sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-      </Box>
+    <Box>
+      <div>Contacts</div>
+      {contacts && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="Table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">University</TableCell>
+                <TableCell align="right">Program</TableCell>
+                <TableCell align="right">Country</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {contacts.map((contact) => (
+                <TableRow
+                  key={contact.user_id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {contact.name}
+                  </TableCell>
+                  <TableCell align="right">{contact.email}</TableCell>
+                  <TableCell align="right">{contact.university}</TableCell>
+                  <TableCell align="right">{contact.program}</TableCell>
+                  <TableCell align="right">{contact.country}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Box>
   );
-}
+};
 
 export default Home;
+
+// EXPECTED DATA
+// [
+//   {
+//     id: 1,
+//     name: "John Smith",
+//     email: "john.smith@fake.fake",
+//     university: "NotAReal University",
+//     program: "Inner Universe",
+//     country: "Canada",
+//     created_at: "2022-07-30T17:20:30.000Z",
+//     updated_at: "2022-07-30T17:20:30.000Z",
+//     user_id: 1,
+//   },
+// ];
+
+// const contactsRows = [
+//   createData("Name", "email@mail.com", "Mcgill", "Biology", "Canada"),
+//   createData("Name", "email@mail.com", "Mcgill", "Biology", "Canada"),
+//   createData("Name", "email@mail.com", "Concordia", "Biology", "Canada"),
+//   createData("Name", "email@mail.com", "Mcgill", "Biology", "Canada"),
+//   createData("Name", "email@mail.com", "Mcgill", "Biology", "Canada"),
+//   createData("Name", "email@mail.com", "UQAM", "Biology", "Canada"),
+//   createData("Name", "email@mail.com", "UQAM", "Biology", "Canada"),
+// ];

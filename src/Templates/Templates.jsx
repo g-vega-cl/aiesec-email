@@ -1,122 +1,83 @@
-import * as React from 'react';
-import { useState } from 'react';
+import * as React from "react";
+import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-
-const columns = [
-  { id: 'name', label: 'Template name', minWidth: 170 },
-  { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-  {
-    id: 'population',
-    label: 'Population',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'size',
-    label: 'Size\u00a0(km\u00b2)',
-    minWidth: 170,
-    align: 'right',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-];
-
-const createData = (name, code, population, size) => {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
-];
+// function createData(name, university, program, country) {
+//   return { name, university, program, country};
+// };
 
 const Templates = () => {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [templates, setTemplates] = useState([]);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  useEffect(() => {
+    fetch(`/templates`)
+      .then((res) => res.json())
+      .then((json) => {
+        setTemplates(json);
+      });
+  }, []);
 
   return (
-    <Paper sx={{ width: '100%', position: "relative" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
+    <Box>
+      <div>Templates</div>
+      {templates && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="Table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">University</TableCell>
+                <TableCell align="right">Program</TableCell>
+                <TableCell align="right">Country</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {templates.map((template) => (
+                <TableRow
+                  key={template.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  {column.label}
-                </TableCell>
+                  <TableCell component="th" scope="row">
+                    {template.body}
+                  </TableCell>
+                  <TableCell align="right">{template.university}</TableCell>
+                  <TableCell align="right">{template.program}</TableCell>
+                  <TableCell align="right">{template.country}</TableCell>
+                </TableRow>
               ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </Box>
   );
-}
-
-
+};
 
 export default Templates;
+
+// EXPECTED DATA
+// [{"id":1,
+// "created_at":"2022-07-30T15:38:54.000Z",
+// "updated_at":"2022-07-30T15:38:54.000Z",
+// "body":"Test Template",
+// "user_id":1,
+// "university":null,
+// "program":null,
+// "country":null}]
+
+// const rows = [
+//   createData('Welcome email', "Mcgill", "Biology", "Canada"),
+//   createData('Fundraising', "Mcgill", "Biology", "Canada"),
+//   createData('Fundraising', "Concordia", "Biology", "Canada"),
+//   createData('Fundraising', "Mcgill", "Biology", "Canada"),
+//   createData('Thank you', "Mcgill", "Biology", "Canada"),
+//   createData('Event on Jan 12', "UQAM", "Biology", "Canada"),
+//   createData('Event on Jan 15', "UQAM", "Biology", "Canada"),
+// ];
