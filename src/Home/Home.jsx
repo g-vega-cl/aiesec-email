@@ -24,7 +24,6 @@ const Home = () => {
         return jsonResult;
       })
       .then((text) => {
-        console.log("text", text);
         setContacts(text);
       });
   }, []);
@@ -45,9 +44,9 @@ const Home = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {contacts.map((contact) => (
+              {contacts.map((contact, index) => (
                 <TableRow
-                  key={contact.user_id}
+                  key={`contact.user_id ${index}`}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
