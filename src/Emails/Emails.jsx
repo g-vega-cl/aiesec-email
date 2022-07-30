@@ -15,7 +15,7 @@ export default function Emails() {
         console.log("json", json);
         const newData = [];
         json.forEach((value) => {
-          newData.push([value.subject, value.template_id]);
+          newData.push([value.subject, value.template.id]);
         });
         setData(newData);
       });
