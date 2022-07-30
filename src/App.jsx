@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Home/Home';
 import Templates from './Templates/Templates';
+import Template from './Template/Template';
 import Emails from './Emails/Emails';
 import Layout from './Layout/Layout';
 import Login from './Login/Login';
@@ -19,6 +20,7 @@ const App = () => {
             <Route exact path="/login" element={<Login/>}/>
             {/* <Route exact path="/login" element={<LayoutWrapper Component={Login}/>}/> */}
             <Route exact path="/templates" element={<LayoutWrapper Component={Templates}/>}/>
+            <Route exact path="/templates/:template-name" element={<LayoutWrapper Component={Template}/>}/>
             <Route exact path="/emails" element={<LayoutWrapper Component={Emails}/>}/>
             <Route path="*" element={<LayoutWrapper Component={NotFound}/>}/>
         </Routes>

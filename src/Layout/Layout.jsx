@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
   ];
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", position: "absolute" }}>
       <CssBaseline />
 
       {/* AIESEC HEADER */}
@@ -43,8 +43,7 @@ const Layout = ({ children }) => {
       </AppBar>
       <Drawer
         sx={{
-          width: drawerWidth,
-          flexShrink: 0,
+          width: drawerWidth, flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
