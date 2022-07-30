@@ -1,6 +1,7 @@
 {
   "homepage": "http://g-vega-cl.github.io/aiesec-email",
   "name": "aiesec-email",
+  "homepage": "http://g-vega-cl.github.io/aiesec-email",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
