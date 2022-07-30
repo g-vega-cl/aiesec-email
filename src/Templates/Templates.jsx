@@ -17,7 +17,7 @@ const Templates = () => {
   const [templates, setTemplates] = useState([]);
 
   useEffect(() => {
-    fetch(`/templates`)
+    fetch(`http://54.75.95.208:8080/templates`)
       .then((res) => res.json())
       .then((json) => {
         setTemplates(json);

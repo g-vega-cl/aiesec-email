@@ -12,13 +12,23 @@ import Paper from "@mui/material/Paper";
 const Home = () => {
   const [contacts, setContacts] = useState([]);
 
+
   useEffect(() => {
-    fetch(`/contacts`)
-      .then((res) => res.json())
-      .then((json) => {
-        setContacts(json);
+    fetch(`http://54.75.95.208:8080/contacts`,{
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },})
+      .then((res) => {
+        const jsonResult = res.json();
+        return jsonResult;
+      })
+      .then((text) => {
+        console.log("text", text);
+        // setContacts(text);
       });
   }, []);
+
 
   return (
     <Box>
